@@ -52,7 +52,7 @@ pyth_m a b =
   do
     aa <- pow2_m a
     bb <- pow2_m b
-    aabb <- cont $ \c -> c $ aa + bb
+    aabb <- return $ aa + bb
     cont $ \c -> c $ sqrt aabb
 
 -- constructing Cont with cont function

@@ -52,10 +52,10 @@ pyth_m a b =
   do
     aa <- pow2_m a
     bb <- pow2_m b
-    aabb <- add_m aa bb
-    cont $ \c -> c $ sqrt 3
+    aabb <- cont $ \c -> c $ aa + bb
+    cont $ \c -> c $ sqrt aabb
 
 -- constructing Cont with cont function
 
-some_cont :: Cont Float Float
-some_cont = cont $ \c -> c $ sqrt 3
+three_squared :: Cont a Float
+three_squared = cont $ \c -> c $ sqrt 3

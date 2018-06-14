@@ -54,3 +54,12 @@ pyth_m a b =
     bb <- pow2_m b
     aabb <- add_m aa bb
     cont (sqrt' aabb)
+
+-- constructing Cont with cont function
+my_conf_helper :: Float -> (Float -> Float) -> Float
+my_conf_helper x f = f (sqrt x)
+
+my_cont_f :: (Float -> Float) -> Float
+my_cont_f = my_conf_helper 3
+
+my_cont = cont my_cont_f

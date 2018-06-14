@@ -59,7 +59,14 @@ pyth_m a b =
 my_conf_helper :: Float -> (Float -> Float) -> Float
 my_conf_helper x f = f (sqrt x)
 
-my_cont_f :: (Float -> Float) -> Float
-my_cont_f = my_conf_helper 3
+any_fun_conter :: (Float -> Float) -> Float -> (Float -> Float) -> Float
+any_fun_conter f x c = c (f x)
 
+my_cont_f :: (Float -> Float) -> Float
+my_cont_f = any_fun_conter sqrt 3
+
+simple_conter :: (Float -> Float) -> Float
+simple_conter c = c (sqrt 3)
+
+my_cont :: Cont Float Float
 my_cont = cont my_cont_f

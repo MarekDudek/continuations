@@ -16,20 +16,20 @@ pyth a b = sqrt (add (pow2 a) (pow2 b))
 -- CPS
 
 pow2' :: Float -> (Float -> a) -> a
-pow2' a cont = cont $ pow2 a
+pow2' a c = c $ pow2 a
 
 add' :: Float -> Float -> (Float -> a) -> a
-add' a b cont = cont $ add a b
+add' a b c = c $ add a b
 
 sqrt' :: Float -> (Float -> a) -> a
-sqrt' a cont = cont $ sqrt a
+sqrt' a c = c $ sqrt a
 
 pyth' :: Float -> Float -> (Float -> a) -> a
-pyth' a b cont = 
+pyth' a b c = 
   pow2' a (
     \aa -> pow2' b (
       \bb -> add' aa bb (
-        \aabb -> sqrt' aabb cont
+        \aabb -> sqrt' aabb c
       )
     )
   )
@@ -41,11 +41,15 @@ calcPyth a b = pyth' a b id
 pow2_m :: Float -> Cont a Float
 pow2_m a = return $ pow2 a
 
+add_m :: Float -> Float -> Cont a Float
+add_m a b = return $ add a b
+
+
 pyth_m :: Float -> Float -> Cont a Float
 pyth_m a b =
   do
     aa <- pow2_m a
     bb <- pow2_m b
-    aabb <- cont (add' aa bb)
+    aabb <- add_m aa bb
     r <- cont (sqrt' aabb)
     return r

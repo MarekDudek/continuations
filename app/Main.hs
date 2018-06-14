@@ -13,7 +13,7 @@ demoPyth =
     let a = 3
         b = 4
     putStr $ "Pythagorean " ++ show a ++ " and " ++ show b ++ " is "
-    putStrLn $ show $ calcPyth a b
+    print $ calcPyth a b
 
 demoPythCont =
   do

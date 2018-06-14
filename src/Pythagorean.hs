@@ -44,6 +44,8 @@ pow2_m a = return $ pow2 a
 add_m :: Float -> Float -> Cont a Float
 add_m a b = return $ add a b
 
+sqrt_m :: Float -> Cont a Float
+sqrt_m a = return $ sqrt a
 
 pyth_m :: Float -> Float -> Cont a Float
 pyth_m a b =
@@ -51,5 +53,4 @@ pyth_m a b =
     aa <- pow2_m a
     bb <- pow2_m b
     aabb <- add_m aa bb
-    r <- cont (sqrt' aabb)
-    return r
+    cont (sqrt' aabb)

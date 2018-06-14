@@ -1,6 +1,9 @@
 module Pythagorean where
 
+import Control.Monad.Cont
+
 -- traditional 
+
 pow2 :: Float -> Float
 pow2 a = a ** 2
 
@@ -30,3 +33,19 @@ pyth' a b cont =
       )
     )
   )
+
+calcPyth a b = pyth' a b id
+
+-- Cont 
+
+pow2_m :: Float -> Cont a Float
+pow2_m a = return $ pow2 a
+
+pyth_m :: Float -> Float -> Cont a Float
+pyth_m a b =
+  do
+    aa <- pow2_m a
+    bb <- pow2_m b
+    aabb <- cont (add' aa bb)
+    r <- cont (sqrt' aabb)
+    return r

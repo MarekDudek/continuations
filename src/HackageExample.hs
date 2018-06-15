@@ -1,3 +1,5 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+
 module HackageExample where 
 
 import Control.Monad.Cont
@@ -21,11 +23,18 @@ hackageExampleMain =
 
 whatsYourName :: String -> String
 whatsYourName name = 
-  (`runCont` id ) $ do
-    response <- callCC $ \exit -> do
-      validateName name exit
-      return $ "Welcome, " ++ name ++ "!"
-    return response
+  getResultFromCont (
+    do
+      response <- callCC welcomeWithValidation
+      return response
+  )
+  where
+    getResultFromCont :: Cont r r -> r
+    getResultFromCont = (`runCont` id)
+    welcomeWithValidation exit =
+      do
+        validateName name exit
+        return $ "Welcome, " ++ name ++ "!"
 
 validateName name exit = 
   do

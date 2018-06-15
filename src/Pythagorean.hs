@@ -57,7 +57,14 @@ pyth_m a b =
 
 -- constructing Cont with cont function
 
+someFun :: (Float -> r) -> r
 someFun c = c $ sqrt 3
+
+someResult :: Float
+someResult = someFun id
 
 someCont :: Cont a Float
 someCont = cont someFun
+
+someResult' :: Float
+someResult' = runCont someCont id

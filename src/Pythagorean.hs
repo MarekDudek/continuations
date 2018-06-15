@@ -66,5 +66,8 @@ someResult = someFun id
 someCont :: Cont a Float
 someCont = cont someFun
 
+someCont' :: Cont a Float
+someCont' = return $ sqrt 3
+
 someResult' :: Float
 someResult' = runCont someCont id

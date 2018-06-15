@@ -57,6 +57,7 @@ pyth_m a b =
 
 -- constructing Cont with cont function
 
+someFun c = c $ sqrt 3
 
-three_squared :: Cont a Float
-three_squared = cont $ \c -> c $ sqrt 3
+someCont :: Cont a Float
+someCont = cont someFun

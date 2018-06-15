@@ -28,11 +28,13 @@ whatsYourName name =
   )
   where
     getResultFromCont = (`runCont` id) :: Cont r r -> r
-    welcomeWithValidation exit =
+    welcomeWithValidation :: (String -> Cont r ()) -> Cont r String
+    welcomeWithValidation exit = 
       do
         validateName name exit
         return $ "Welcome, " ++ name ++ "!"
 
+validateName :: (Applicative f) => String -> (String -> f ()) -> f ()
 validateName name exit = 
   do
     when (null name) (exit "You forgot to tell me your name!")

@@ -1,5 +1,3 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-
 module HackageExample where 
 
 import Control.Monad.Cont
@@ -29,8 +27,7 @@ whatsYourName name =
       return response
   )
   where
-    getResultFromCont :: Cont r r -> r
-    getResultFromCont = (`runCont` id)
+    getResultFromCont = (`runCont` id) :: Cont r r -> r
     welcomeWithValidation exit =
       do
         validateName name exit

@@ -21,18 +21,15 @@ hackageExampleMain =
 
 whatsYourName :: String -> String
 whatsYourName name = 
-  getResultFromCont (
-    do
-      response <- callCC welcomeWithValidation
-      return response
-  )
+  getResultFromCont $ callCC welcomeWithValidation
   where
-    getResultFromCont = (`runCont` id) :: Cont r r -> r
     welcomeWithValidation :: (String -> Cont r ()) -> Cont r String
     welcomeWithValidation exit = 
       do
         validateName name exit
         return $ "Welcome, " ++ name ++ "!"
+
+getResultFromCont = (`runCont` id) :: Cont r r -> r
 
 validateName :: (Applicative f) => String -> (String -> f ()) -> f ()
 validateName name exit = 

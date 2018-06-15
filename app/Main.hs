@@ -3,10 +3,11 @@ module Main where
 import Control.Monad.Cont
 
 import Pythagorean
+import HackageExample
 
 main :: IO ()
 main = 
-  demoPythCont
+  hackageExampleMain
 
 demoPyth = 
   do

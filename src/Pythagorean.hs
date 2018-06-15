@@ -53,9 +53,10 @@ pyth_m a b =
     aa <- pow2_m a
     bb <- pow2_m b
     aabb <- return $ aa + bb
-    cont $ \c -> c $ sqrt aabb
+    return $ sqrt aabb 
 
 -- constructing Cont with cont function
+
 
 three_squared :: Cont a Float
 three_squared = cont $ \c -> c $ sqrt 3
